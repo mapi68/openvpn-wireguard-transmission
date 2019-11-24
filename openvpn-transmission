@@ -1,29 +1,52 @@
 #!/bin/bash
 
-# chmod +x openvpn-transmission
-# ./openvpn-transmission &
 
-killall openvpn >> /dev/null 2>&1
-sleep 2
-killall -9 openvpn >> /dev/null 2>&1
-systemctl stop transmission-daemon.service
+start_script() {
+	[ -x openvpn ] || systemctl stop openvpn
+	[ -x transmission-daemon ] || systemctl stop transmission-daemon
+	killall openvpn >> /dev/null 2>&1
+	sleep 3
+	CLIENT=`ls /etc/openvpn/client | shuf -n 1`
 
-CLIENT=`ls /etc/openvpn/client | shuf -n 1`
-OLDIP=`dig TXT +short o-o.myaddr.l.google.com @ns1.google.com | sed -e 's/^"//' -e 's/"$//'`
+	openvpn --config /etc/openvpn/client/$CLIENT >> /dev/null 2>&1
 
-openvpn --config /etc/openvpn/client/$CLIENT >> /dev/null 2>&1 &
-
-sleep 30
-
-NEWIP=`dig TXT +short o-o.myaddr.l.google.com @ns1.google.com | sed -e 's/^"//' -e 's/"$//'`
-systemctl start transmission-daemon.service
-
-CHECKTUN=`ip -o -f inet addr show | awk '/scope global/' | grep tun0 | awk '{print $2}'`
-while [[ $CHECKTUN = tun0 ]]; do
-	sleep 10
+	sleep 20
+	systemctl start transmission-daemon
 	CHECKTUN=`ip -o -f inet addr show | awk '/scope global/' | grep tun0 | awk '{print $2}'`
-	sleep 10
-done
 
-systemctl stop transmission-daemon.service
-./openvpn-transmission >> /dev/null 2>&1 &
+	while [[ $CHECKTUN = tun0 ]]; do
+		sleep 10
+		CHECKTUN=`ip -o -f inet addr show | awk '/scope global/' | grep tun0 | awk '{print $2}'`
+		sleep 10
+	done
+
+	systemctl stop transmission-daemon
+	./openvpn-transmission start
+}
+
+stop_script() {
+	[ -x openvpn ] || systemctl stop openvpn
+	[ -x transmission-daemon ] || systemctl stop transmission-daemon
+	killall openvpn >> /dev/null 2>&1
+}
+
+help_script() {
+	echo
+	echo
+	echo
+}
+
+
+case "$1" in
+	start)
+	start_script &
+	;;
+	stop)
+	stop_script
+	;;
+	help)
+	help_script
+	;;
+	*)
+	echo "Usage: $0 {start|stop|help}"
+esac
