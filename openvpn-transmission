@@ -5,29 +5,30 @@ start_script() {
 	[ -x openvpn ] || systemctl stop openvpn
 	[ -x transmission-daemon ] || systemctl stop transmission-daemon
 	killall openvpn >> /dev/null 2>&1
-	sleep 3
+	sleep 2
+	killall -9 openvpn >> /dev/null 2>&1
+	
 	CLIENT=`ls /etc/openvpn/client | shuf -n 1`
-
-	openvpn --config /etc/openvpn/client/$CLIENT >> /dev/null 2>&1
-
-	sleep 20
+	openvpn --config /etc/openvpn/client/$CLIENT >> /dev/null 2>&1 &
+	sleep 30
 	systemctl start transmission-daemon
+	
 	CHECKTUN=`ip -o -f inet addr show | awk '/scope global/' | grep tun0 | awk '{print $2}'`
-
 	while [[ $CHECKTUN = tun0 ]]; do
-		sleep 10
+		sleep 5
 		CHECKTUN=`ip -o -f inet addr show | awk '/scope global/' | grep tun0 | awk '{print $2}'`
-		sleep 10
+		sleep 5
 	done
 
 	systemctl stop transmission-daemon
-	./openvpn-transmission start
 }
 
 stop_script() {
 	[ -x openvpn ] || systemctl stop openvpn
 	[ -x transmission-daemon ] || systemctl stop transmission-daemon
 	killall openvpn >> /dev/null 2>&1
+	sleep 2
+	killall -9 openvpn >> /dev/null 2>&1
 }
 
 help_script() {
