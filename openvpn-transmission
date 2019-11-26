@@ -74,7 +74,7 @@ help_script() {
 	echo && echo "In order to work properly you need:"
 	echo "1) Put all configuration files of OpenVPN (.ovpn) in /etc/openvpn/client"
 	echo "2) Check that after 'auth-user-pass' there is the path of user-pass file."
-	echo "3) chmod 600 user-pass"
+	echo "3) chmod 600 /PATH_OF/user-pass"
 	echo "4) chmod +x openvpn-transmission"
 	echo "5) $0 start"
 	echo && echo "Every time that script runs it choose a random server from all .ovpn files."
