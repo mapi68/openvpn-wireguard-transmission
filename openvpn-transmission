@@ -78,8 +78,9 @@ help_script() {
 	echo "4) chmod +x openvpn-transmission"
 	echo "5) $0 start"
 	echo && echo "Every time that script runs it choose a random server from all .ovpn files."
-	echo "If OpenVPN crash or server is not available, script stops transmission-daemon service."
+	echo "If OpenVPN crashes or server is not available, script stops transmission-daemon service."
 	echo "You can check status with: $0 status"
+	echo && echo "Usage: $0 {start|stop|restart|status|help}"
 	echo && echo
 }
 
