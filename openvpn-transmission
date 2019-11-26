@@ -1,6 +1,19 @@
 #!/bin/bash
 
 
+if [ ! -f /usr/bin/whois ]; then
+	clear
+	echo && echo -e '\e[91m' "*************	MISSING DEPENDENCIES *************" && echo
+	read -p "Do you want to install whois? (Y/n) " -n 1 -r -s
+	if ! [[ $REPLY =~ ^[Yy]$ ]]; then
+		echo && echo && echo "Sorry but without this package I can't execute openvpn-transmission"
+		echo && echo -e '\e[0m' && sleep 1 && exit 1
+	else
+		echo && echo && echo -e '\e[95m'"Starting install dependencies..." && echo && echo -e '\e[0m' && sleep 1
+		apt-get update && apt-get upgrade -y && apt-get install whois -y
+	fi
+fi
+
 start_script() {
 	[ -x openvpn ] || systemctl stop openvpn
 	[ -x transmission-daemon ] || systemctl stop transmission-daemon
@@ -10,14 +23,21 @@ start_script() {
 
 	CLIENT=`ls /etc/openvpn/client | shuf -n 1`
 	openvpn --config /etc/openvpn/client/$CLIENT >> /dev/null 2>&1 &
+
+	clear
+	echo && echo -e '\e[91m'"Starting OpenVPN and transmission-daemon"
+	echo -e '\e[0m'"Please wait 20 seconds..." && echo
 	sleep 20
+
 	systemctl start transmission-daemon
 	CHECKTUN=`ip -o -f inet addr show | awk '/scope global/' | grep tun0 | awk '{print $2}'`
 
+	$0 status &
+
 	while [[ $CHECKTUN = tun0 ]]; do
-		sleep 10
+		sleep 7
 		CHECKTUN=`ip -o -f inet addr show | awk '/scope global/' | grep tun0 | awk '{print $2}'`
-		sleep 10
+		sleep 8
 	done
 
 	systemctl stop transmission-daemon
@@ -29,6 +49,7 @@ stop_script() {
 	killall openvpn >> /dev/null 2>&1
 	sleep 2
 	killall -9 openvpn >> /dev/null 2>&1
+	echo && echo "OpenVPN and transmission-daemon stopped!" && echo && echo
 }
 
 status() {
@@ -48,9 +69,18 @@ status() {
 }
 
 help_script() {
-	echo
-	echo
-	echo
+	clear
+	echo && echo "This script starts OpenVPN and transmission-daemon."
+	echo && echo "In order to work properly you need:"
+	echo "1) Put all configuration files of OpenVPN (.ovpn) in /etc/openvpn/client"
+	echo "2) Check that after 'auth-user-pass' there is the path of user-pass file."
+	echo "3) chmod 600 user-pass"
+	echo "4) chmod +x openvpn-transmission"
+	echo "5) $0 start"
+	echo && echo "Every time that script runs it choose a random server from all .ovpn files."
+	echo "If OpenVPN crash or server is not available, script stops transmission-daemon service."
+	echo "You can check status with: $0 status"
+	echo && echo
 }
 
 
