@@ -30,6 +30,7 @@ start_script() {
 	sleep 20
 
 	systemctl start transmission-daemon
+	sleep 3
 	CHECKTUN=`ip -o -f inet addr show | awk '/scope global/' | grep tun0 | awk '{print $2}'`
 
 	$0 status &
@@ -85,22 +86,22 @@ help_script() {
 
 
 case "$1" in
-	start)
+start)
 	start_script &
 	;;
-	stop)
+stop)
 	stop_script
 	;;
-	restart)
+restart)
 	start_script &
 	;;
-	status)
+status)
 	status &
 	;;
-	help)
+help)
 	help_script
 	;;
-	*)
+*)
 	echo "Usage: $0 {start|stop|restart|status|help}"
 esac
 
