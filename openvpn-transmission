@@ -85,23 +85,22 @@ help_script() {
 
 
 case "$1" in
-start)
+	start)
 	start_script &
 	;;
-stop)
+	stop)
 	stop_script
 	;;
-restart)
-	stop_script
+	restart)
 	start_script &
 	;;
-status)
+	status)
 	status &
 	;;
-help)
+	help)
 	help_script
 	;;
-*)
+	*)
 	echo "Usage: $0 {start|stop|restart|status|help}"
 esac
 
