@@ -26,8 +26,8 @@ start_script() {
 
 	clear
 	echo && echo -e '\e[91m'"Starting OpenVPN and transmission-daemon"
-	echo -e '\e[0m'"Please wait 20 seconds..." && echo
-	sleep 20
+	echo -e '\e[0m'"Please wait 25 seconds..." && echo
+	sleep 22
 
 	systemctl start transmission-daemon
 	sleep 3
@@ -80,29 +80,26 @@ help_script() {
 	echo && echo "Every time that script runs it choose a random server from all .ovpn files."
 	echo "If OpenVPN crashes or server is not available, script stops transmission-daemon service."
 	echo "You can check status with: $0 status"
-	echo && echo "Usage: $0 {start|stop|restart|status|help}"
+	echo && echo "Usage: $0 {start|stop|status|help}"
 	echo && echo
 }
 
 
 case "$1" in
-start)
+	start)
 	start_script &
 	;;
-stop)
+	stop)
 	stop_script
 	;;
-restart)
-	start_script &
-	;;
-status)
+	status)
 	status &
 	;;
-help)
+	help)
 	help_script
 	;;
-*)
-	echo "Usage: $0 {start|stop|restart|status|help}"
+	*)
+	echo "Usage: $0 {start|stop|status|help}"
 esac
 
 exit 0
