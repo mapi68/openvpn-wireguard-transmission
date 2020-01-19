@@ -10,7 +10,7 @@ if [ ! -f /usr/bin/whois ]; then
 		echo && echo -e '\e[0m' && sleep 1 && exit 1
 	else
 		echo && echo && echo -e '\e[95m'"Starting install dependencies..." && echo && echo -e '\e[0m' && sleep 1
-		apt-get update && apt-get upgrade -y && apt-get install whois -y
+		sudo apt-get update && sudo apt-get upgrade -y && sudo apt-get install whois -y
 	fi
 fi
 
