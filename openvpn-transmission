@@ -26,8 +26,8 @@ start_script() {
 
 	clear
 	echo && echo -e '\e[91m'"Starting OpenVPN and transmission-daemon"
-	echo -e '\e[0m'"Please wait 25 seconds..." && echo
-	sleep 22
+	echo -e '\e[0m'"Please wait 30 seconds..." && echo
+	sleep 26
 
 	systemctl start transmission-daemon
 	sleep 3
