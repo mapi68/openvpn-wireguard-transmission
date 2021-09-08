@@ -14,7 +14,7 @@ If OpenVPN crashes or server is not available, script stops transmission-daemon 
 ```bash
 wget https://raw.githubusercontent.com/mapi68/openvpn-transmission/master/openvpn-transmission.bash
 sudo chmod +x openvpn-transmission.bash
-sudo ./openvpn-transmission help
+sudo ./openvpn-transmission.bash help
 ```
 
 
