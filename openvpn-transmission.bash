@@ -14,7 +14,7 @@ if [ ! -f /usr/bin/whois ]; then
 	fi
 fi
 
-start_script() {
+start() {
 	[ -x openvpn ] || systemctl stop openvpn
 	[ -x transmission-daemon ] || systemctl stop transmission-daemon
 	killall openvpn >> /dev/null 2>&1
@@ -45,7 +45,7 @@ start_script() {
 	systemctl stop transmission-daemon
 }
 
-stop_script() {
+stop() {
 	[ -x openvpn ] || systemctl stop openvpn
 	[ -x transmission-daemon ] || systemctl stop transmission-daemon
 	killall openvpn >> /dev/null 2>&1
@@ -69,7 +69,7 @@ status() {
 	fi
 }
 
-help_script() {
+help() {
 	clear
 	echo && echo "This script starts OpenVPN and transmission-daemon."
 	echo && echo "In order to work properly you need:"
@@ -88,16 +88,16 @@ help_script() {
 
 case "$1" in
 	start)
-		start_script &
+		start &
 		;;
 	stop)
-		stop_script
+		stop
 		;;
 	status)
 		status &
 		;;
 	help)
-		help_script
+		help
 		;;
 	*)
 		echo "Usage: $0 {start|stop|status|help}"
