@@ -26,6 +26,7 @@ start_script() {
 
 	clear
 	echo && echo -e '\e[91m'"Starting OpenVPN and transmission-daemon"
+	echo -e '\e[33m'"COnnecting with $CLIENT"
 	echo -e '\e[0m'"Please wait 30 seconds..." && echo
 	sleep 26
 
@@ -87,19 +88,19 @@ help_script() {
 
 case "$1" in
 	start)
-	start_script &
-	;;
+		start_script &
+		;;
 	stop)
-	stop_script
-	;;
+		stop_script
+		;;
 	status)
-	status &
-	;;
+		status &
+		;;
 	help)
-	help_script
-	;;
+		help_script
+		;;
 	*)
-	echo "Usage: $0 {start|stop|status|help}"
+		echo "Usage: $0 {start|stop|status|help}"
 esac
 
 exit 0
