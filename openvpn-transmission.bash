@@ -26,7 +26,7 @@ start() {
 
 	clear
 	echo && echo -e '\e[91m'"Starting OpenVPN and transmission-daemon"
-	echo -e '\e[33m'"COnnecting with $CLIENT"
+	echo -e '\e[33m'"Connecting with $CLIENT"
 	echo -e '\e[0m'"Please wait 30 seconds..." && echo
 	sleep 26
 
