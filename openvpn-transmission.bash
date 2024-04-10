@@ -1,20 +1,14 @@
 #!/bin/bash
 
 
-if [ ! -f /usr/bin/whois ]; then
-	clear
-	echo && echo -e '\e[91m' "*************	MISSING DEPENDENCIES *************" && echo
-	read -p "Do you want to install whois? (Y/n) " -n 1 -r -s
-	if [[ $REPLY =~ ^[Nn]$ ]]; then
-		echo && echo && echo "Sorry but without this package I can't execute openvpn-transmission"
-		echo && echo -e '\e[0m' && sleep 1 && exit 1
-	else
-		echo && echo && echo -e '\e[95m'"Starting install dependencies..." && echo && echo -e '\e[0m' && sleep 1
-		sudo apt-get update && sudo apt-get upgrade -y && sudo apt-get install whois -y
-	fi
-fi
-
 start() {
+	if [ ! -f /usr/bin/whois ] || [ ! -f /usr/bin/transmission-daemon ] || [ ! -f /usr/sbin/openvpn ]; then
+		clear
+		echo && echo -e '\e[91m' "*************	MISSING DEPENDENCIES *************" && echo
+		echo && echo && echo -e '\e[95m'"Starting install dependencies..." && echo && echo -e '\e[0m' && sleep 1
+		sudo apt update && sudo apt upgrade -y && sudo apt install whois openvpn transmission-daemon transmission-common -y
+	fi
+
 	[ -x openvpn ] || systemctl stop openvpn
 	[ -x transmission-daemon ] || systemctl stop transmission-daemon
 	killall openvpn >> /dev/null 2>&1
