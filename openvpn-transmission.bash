@@ -7,6 +7,7 @@ start() {
 		echo && echo -e '\e[91m' "*************	MISSING DEPENDENCIES *************" && echo
 		echo && echo && echo -e '\e[95m'"Starting install dependencies..." && echo && echo -e '\e[0m' && sleep 1
 		sudo apt update && sudo apt upgrade -y && sudo apt install whois openvpn transmission-daemon transmission-common -y
+		systemctl disable openvpn && systemctl disable transmission-daemon
 	fi
 
 	[ -x openvpn ] || systemctl stop openvpn
