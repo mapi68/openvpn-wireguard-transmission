@@ -2,6 +2,7 @@
 
 * [Overview](#overview)
 * [Installation](#installation)
+* [Help](#help)
 * [License](#license)
 
 ## Overview
@@ -13,9 +14,17 @@
 ```bash
 wget https://raw.githubusercontent.com/mapi68/openvpn-wireguard-transmission/master/openvpn-transmission.bash
 wget https://raw.githubusercontent.com/mapi68/openvpn-wireguard-transmission/master/wireguard-transmission.bash
-sudo chmod +x openvpn-transmission.bash wireguard-transmission.bash
-sudo ./openvpn-transmission.bash help
-sudo ./wireguard-transmission.bash help
+chmod +x openvpn-transmission.bash wireguard-transmission.bash
+
+```
+
+
+## Help
+
+```bash
+
+./openvpn-transmission.bash help
+./wireguard-transmission.bash help
 
 ```
 
