@@ -1,20 +1,22 @@
-# openvpn-transmission
+# openvpn-wireguard-transmission
 
 * [Overview](#overview)
 * [Installation](#installation)
 * [License](#license)
 
 ## Overview
-<b>OPENVPN-TRANSMISSION is a script that starts OpenVPN and transmission-daemon.</br>
-If OpenVPN crashes or server is not available, script stops transmission-daemon service.</b>
+<b>openvpn-transmision and wireguard-transmission are two scripts that start OpenVPN or Wireguard and transmission-daemon. If OpenVPN or Wireguard crash or server is not available, the scripts stop transmission-daemon service.</b>
 
 
 ## Installation
 
 ```bash
-wget https://raw.githubusercontent.com/mapi68/openvpn-transmission/master/openvpn-transmission.bash
-sudo chmod +x openvpn-transmission.bash
+wget https://raw.githubusercontent.com/mapi68/openvpn-wireguard-transmission/master/openvpn-transmission.bash
+wget https://raw.githubusercontent.com/mapi68/openvpn-wireguard-transmission/master/wireguard-transmission.bash
+sudo chmod +x openvpn-transmission.bash wireguard-transmission.bash
 sudo ./openvpn-transmission.bash help
+sudo ./wireguard-transmission.bash help
+
 ```
 
 
