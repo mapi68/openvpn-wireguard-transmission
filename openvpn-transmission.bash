@@ -66,36 +66,35 @@ status() {
 
 help() {
 	clear
-	echo && echo "This script starts OpenVPN and transmission-daemon."
-	echo && echo "In order to work properly you need:"
-	echo "1) Put all configuration files of OpenVPN (.ovpn) in /etc/openvpn/client"
-	echo "2) Check that after 'auth-user-pass' there is the path of user-pass file."
-	echo "3) chmod 600 /PATH_OF/user-pass"
-	echo "4) chmod +x openvpn-transmission"
-	echo "5) $0 start"
-	echo && echo "Every time that script runs it choose a random server from all .ovpn files."
-	echo "If OpenVPN crashes or server is not available, script stops transmission-daemon service."
-	echo "You can check status with: $0 status"
+	echo && echo "This script initializes OpenVPN and transmission-daemon."
+	echo && echo "To ensure proper functionality, please follow these steps:"
+	echo "1) Place all OpenVPN configuration files (.ovpn) in /etc/openvpn/client"
+	echo "2) Verify that after 'auth-user-pass' there is the path of the user-pass file."
+	echo "3) Set permissions for the user-pass file: chmod 600 /PATH_OF/user-pass"
+	echo "4) Make the script executable by running: chmod +x openvpn-transmission"
+	echo "5) Execute the script with: $0 start"
+	echo && echo "Every time the script runs, it will randomly select a server from all .ovpn files."
+	echo "If OpenVPN crashes or the server becomes unavailable, the script will stop the transmission-daemon service."
 	echo && echo "Usage: $0 {start|stop|status|help}"
 	echo && echo
 }
 
 
 case "$1" in
-	start)
+start)
 		start &
 		;;
 	stop)
-		stop
-		;;
-	status)
+	stop
+	;;
+status)
 		status &
 		;;
 	help)
-		help
-		;;
-	*)
+	help
+	;;
+*)
 		echo "Usage: $0 {start|stop|status|help}"
-esac
+	esac
 
-exit 0
+	exit 0

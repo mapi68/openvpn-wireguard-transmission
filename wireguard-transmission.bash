@@ -66,33 +66,32 @@ status() {
 
 help() {
 	clear
-	echo && echo "This script starts Wireguard and transmission-daemon."
-	echo && echo "In order to work properly you need:"
-	echo "1) Put configuration file of Wireguard (.conf) in /etc/wireguard"
-	echo "2) chmod +x wireguard-transmission"
-	echo "3) $0 start"
-	echo  && echo "If Wireguard crashes or server is not available, script stops transmission-daemon service."
-	echo "You can check status with: $0 status"
+	echo && echo "This script initializes Wireguard and transmission-daemon."
+	echo && echo "To ensure proper functionality, please follow these steps:"
+	echo "1) Place the Wireguard configuration file (.conf) in /etc/wireguard"
+	echo "2) Make the script executable by running: chmod +x wireguard-transmission"
+	echo "3) Execute the script with: $0 start"
+	echo && echo "If Wireguard crashes or the server becomes unavailable, the script will stop the transmission-daemon service."
 	echo && echo "Usage: $0 {start|stop|status|help}"
 	echo && echo
 }
 
 
 case "$1" in
-	start)
+start)
 		start &
 		;;
 	stop)
-		stop
-		;;
-	status)
+	stop
+	;;
+status)
 		status &
 		;;
 	help)
-		help
-		;;
-	*)
+	help
+	;;
+*)
 		echo "Usage: $0 {start|stop|status|help}"
-esac
+	esac
 
-exit 0
+	exit 0
