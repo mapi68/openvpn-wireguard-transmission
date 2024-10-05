@@ -74,7 +74,7 @@ help() {
 	echo "3) Set appropriate permissions for the user-pass file: chmod 600 /PATH_OF/user-pass"
 	echo "4) Make the script executable: chmod +x openvpn-transmission"
 	echo "5) Run the script: $0 start"
-	echo && echo "The script will randomly select a server from all available .ovpn and .config files each time it runs."
+	echo && echo "The script will randomly select a server from all available .ovpn and .conf files each time it runs."
 	echo "If OpenVPN crashes or the server becomes unavailable, the script will stop the transmission-daemon service."
 	echo && echo "Usage: $0 {start|stop|status|help}"
 	echo && echo
