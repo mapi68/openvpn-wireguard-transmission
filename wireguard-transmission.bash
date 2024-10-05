@@ -66,32 +66,33 @@ status() {
 
 help() {
 	clear
-	echo && echo "This script initializes Wireguard and transmission-daemon."
-	echo && echo "To ensure proper functionality, please follow these steps:"
-	echo "1) Place the Wireguard configuration file (.conf) in /etc/wireguard"
-	echo "2) Make the script executable by running: chmod +x wireguard-transmission"
-	echo "3) Execute the script with: $0 start"
-	echo && echo "If Wireguard crashes or the server becomes unavailable, the script will stop the transmission-daemon service."
+	echo && echo "Welcome to the OpenVPN and transmission-daemon initialization script."
+	echo && echo
+	echo "To ensure optimal performance, please follow these steps:"
+	echo "1) Place the WireGuard configuration file (.conf) in /etc/wireguard"
+	echo "2) Make the script executable: chmod +x wireguard-transmission"
+	echo "3) Run the script with: $0 start"
+	echo && echo "If WireGuard crashes or the server becomes unavailable, the script will stop the transmission-daemon service."
 	echo && echo "Usage: $0 {start|stop|status|help}"
 	echo && echo
 }
 
 
 case "$1" in
-start)
-		start &
-		;;
-	stop)
+	start)
+	start &
+	;;
+stop)
 	stop
 	;;
-status)
-		status &
-		;;
-	help)
+	status)
+	status &
+	;;
+help)
 	help
 	;;
-*)
-		echo "Usage: $0 {start|stop|status|help}"
-	esac
+	*)
+	echo "Usage: $0 {start|stop|status|help}"
+esac
 
-	exit 0
+exit 0
